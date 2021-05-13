@@ -56,15 +56,19 @@ public class WebSshHandler {
         System.out.println("有新链接 " + session.getUserProperties().get("ClientIP") + " 加入!当前在线人数为" + onlineCount.longValue());
 
         HostLoginInfo hostLoginInfo = hostLoginInfoMap.get(id);
-
+        long startTime = System.currentTimeMillis();
+        Thread.sleep(1000);
         jschSession = jsch.getSession(hostLoginInfo.getUsername(), hostLoginInfo.getHostname(), hostLoginInfo.getPort());
         jschSession.setPassword(hostLoginInfo.getPassword());
+//        jschSession = jsch.getSession("root", "104.156.227.78", 22);
+//        jschSession.setPassword("o8(DUzg2@8-Rve*T");
 
         java.util.Properties config = new java.util.Properties();
         config.put("StrictHostKeyChecking", "no");
         jschSession.setConfig(config);
         jschSession.connect();
-
+        long finishTime = System.currentTimeMillis();
+        System.out.println("请求耗时:" + (finishTime - startTime));
         channel = jschSession.openChannel("shell");
         inputStream = channel.getInputStream();
         outputStream = channel.getOutputStream();

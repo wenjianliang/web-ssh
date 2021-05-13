@@ -1,6 +1,7 @@
 package vip.r0n9.controller;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,14 +10,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import vip.r0n9.JsonUtil;
+import vip.r0n9.Test;
 import vip.r0n9.model.HostLoginInfo;
 import vip.r0n9.ws.WebSshHandler;
 
 @Controller
 public class WebSshController {
+    @Autowired
+    Test test;
     @GetMapping("/")
     public String showIndex(Model model) {
         return "index";
+    }
+    @GetMapping("/aa")
+    public String aa(Model model) {
+        System.out.println(test.toString());
+        return "aa";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
